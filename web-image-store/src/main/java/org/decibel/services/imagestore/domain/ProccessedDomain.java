@@ -1,6 +1,5 @@
 package org.decibel.services.imagestore.domain;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class ProccessedDomain  {
 	
 	private String domain;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval =true)
 	private List<Image> images;
 
 	public Integer getId() {

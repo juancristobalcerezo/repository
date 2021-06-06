@@ -1,6 +1,7 @@
 package org.decibel.services.imagestore;
 
 import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -33,29 +34,28 @@ public class WebImageStoreApplicationTests {
 	}
 	
 	@Test
-	public void testServiceReturnsAJson() {
-		
+	public void testServiceReturnsTheProperJson() {
 		
 		String resultString = null;
 		try {
 			ResultActions result = mockMvc.perform(post("/").contentType(MediaType.APPLICATION_JSON).content(
 					"[{\"domain\":\"github.com\",\"images\":[\"https://github.githubassets.com/images/search-key-slash.svg\",\"https://avatars.githubusercontent.com/u/31847993?s=48&v=4\"]}]"))
-					.andExpect(status().isOk());
+					.andExpect(status().isCreated());
+			
+			
+
+			result = mockMvc.perform(get("/github.com").contentType(MediaType.APPLICATION_JSON));
 			
 			resultString = result.andReturn().getResponse().getContentAsString();
-			
 		
-			
-			
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		System.out.println(resultString);
 		
-		assertEquals("[{\"domain\":\"github.com\",\"images\":[\"https://github.githubassets.com/images/search-key-slash.svg\",\"https://avatars.githubusercontent.com/u/31847993?s=48&v=4\"]}]",resultString);
+		assertEquals("{\"id\":1,\"domain\":\"github.com\",\"images\":[\"https://github.githubassets.com/images/search-key-slash.svg\",\"https://avatars.githubusercontent.com/u/31847993?s=48&v=4\"]}",resultString);
 		
 		
 	}

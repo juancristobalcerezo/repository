@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DomainsDao extends JpaRepository<ProccessedDomain, Integer> {
 
+	ProccessedDomain findByDomain(String domain);
+
 }
